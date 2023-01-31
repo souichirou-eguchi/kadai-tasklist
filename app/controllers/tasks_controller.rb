@@ -15,10 +15,10 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     
     if @task.save
-      flash[:success] = 'タスクが正常に追加されました。'
+      flash[:success] = 'タスクが正常に追加されました'
       redirect_to @task
     else
-      task.now[:danger] = 'タスクの追加に失敗しました。'
+      task.now[:danger] = 'タスクの追加に失敗しました'
       render :new
     end
   end
@@ -31,10 +31,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     
     if @task.update(task_params)
-      flash[:success] = 'タスクが正常に更新されました。'
+      flash[:success] = 'タスクが正常に更新されました'
       redirect_to @task
     else
-      task.now[:danger] = 'タスクが正常に更新されませんでした。'
+      task.now[:danger] = 'タスクが正常に更新されませんでした'
       render :new
     end
   end
