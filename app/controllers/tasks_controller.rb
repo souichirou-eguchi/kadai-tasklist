@@ -47,6 +47,7 @@ class TasksController < ApplicationController
     redirect_to tasks_url
   end
   
+  private
   #Strong Param HTTPリクエストの送信に対するセキュリティ対策
   def task_params
     params.require(:task).permit(:content)
