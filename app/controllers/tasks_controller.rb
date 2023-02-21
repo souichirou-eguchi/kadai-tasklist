@@ -1,12 +1,17 @@
 class TasksController < ApplicationController
+  before_action :correct_user, only:[:show, :edit, :update, :destroy]
   before_action :set_task, only:[:show, :edit, :update, :destroy]
   
   def index
-    @tasks = Task.all
+    if logged_in?
+      @tasks = current_user.tasks
+    else
+      redirect_to login_path
+    end
   end
   
   def show
-    
+    @task = Task.find(params[:id])
   end
   
   def new
@@ -14,11 +19,10 @@ class TasksController < ApplicationController
   end
   
   def create
-    @task = Task.new(task_params)
-    
+    @task = current_user.tasks.build(task_params)
     if @task.save
       flash[:success] = 'タスクが正常に追加されました'
-      redirect_to @task
+      redirect_to root_path
     else
       flash.now[:danger] = 'タスクの追加に失敗しました'
       render :new
@@ -26,11 +30,9 @@ class TasksController < ApplicationController
   end
   
   def edit
-    
   end
   
   def update
-    
     
     if @task.update(task_params)
       flash[:success] = 'タスクが正常に更新されました'
