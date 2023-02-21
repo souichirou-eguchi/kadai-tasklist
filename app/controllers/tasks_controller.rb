@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :correct_user
+  before_action :correct_user, except:[:index, :new]
   before_action :set_task, only:[:show, :update, :destroy]
   
   def index
@@ -14,7 +14,11 @@ class TasksController < ApplicationController
   end
   
   def new
-    @task = Task.new
+    if logged_in?
+      @task = Task.new
+    else
+      redirect_to root_path
+    end
   end
   
   def create
@@ -62,7 +66,7 @@ class TasksController < ApplicationController
     if logged_in?
       @task = current_user.tasks.find_by(id: params[:id])
       unless @task
-        redirect_to login_path
+        redirect_to root_path
       end
     else
       redirect_to login_path
