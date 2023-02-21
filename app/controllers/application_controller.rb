@@ -14,14 +14,5 @@ class ApplicationController < ActionController::Base
     !!current_user
   end
   
-  def correct_user
-    if logged_in?
-      @task = current_user.tasks.find_by(id: params[:id])
-      unless @task
-        redirect_to login_path
-      end
-    else
-      redirect_to login_path
-    end
-  end
+
 end
