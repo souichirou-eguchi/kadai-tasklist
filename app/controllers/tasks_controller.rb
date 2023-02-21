@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :correct_user, except:[:index, :new]
+  before_action :correct_user, except:[:index, :new, :create]
   before_action :set_task, only:[:show, :update, :destroy]
   
   def index
